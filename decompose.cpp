@@ -5,7 +5,7 @@
 int main(int argc, char** argv) {
     
     std::string filename = "example13.in";
-    int nParts = 2; // 处理器数
+    int nParts = 4; // 处理器数
 
     StructuredMesh mesh(filename);
 

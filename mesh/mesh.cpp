@@ -900,10 +900,10 @@ void StructuredMesh::decomposeMesh(std::vector<std::vector<I64>>& fRegions,
         SCOTCH_Arch arch;
         SCOTCH_archInit(&arch);
         SCOTCH_archCmplt(&arch, np); // 创建完全连接的架构
-    //     if(SCOTCH_archMesh3(&arch, 1, 2, 2)!=0) {
-    //         std::cerr << "Error: SCOTCH_archMesh3 failed." << std::endl;
-    //         //return;
-	// } 
+        //if(SCOTCH_archMesh3(&arch, 4, 4, 4)!=0) {
+        //    std::cerr << "Error: SCOTCH_archMesh3 failed." << std::endl;
+            //return;
+	//} 
         // 创建划分策略
         SCOTCH_Strat strat;
         SCOTCH_stratInit(&strat);
@@ -2695,3 +2695,6 @@ void CYCASMesh::printInfo()
     std::cout << "Number of Cells: " << NCells << std::endl;
 }
 
+// 超算上：上次的实现版本
+// mesh.cpp当前版本，成功了
+// mesh651-based-on-last 基于上次实现的一点改动，失败了

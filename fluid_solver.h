@@ -16,16 +16,17 @@
 #include "HYPRE_struct_ls.h"
 #include "HYPRE.h"
 #include "HYPRE_parcsr_ls.h"
+#include "_hypre_parcsr_ls.h"
 
-#define L 1.0               
-#define U0 0.1                    
+#define L 1.0                        //方腔边长，单位：米(m)
+#define U0 0.1                    //顶盖运动速度，单位：米/秒(m/s)
 #define RHO 1
-                                 
-#define NU 0.001            
-#define CONVERGENCE2 1e-4             
+                                     //时为超松弛迭代，小于1.0时为亚松弛迭代
+#define NU 0.001            //粘性系数，单位:帕斯卡·秒(Pa·s)
+#define CONVERGENCE2 1e-4             // GS
 #define CONVERGENCE 2e-3
-#define STEP 1        
-#define GS_STEP 100               
+#define STEP 1        //计算域整体网格迭代上限
+#define GS_STEP 100               //计算域单个网格迭代上限
 #define ALPHA 0.001
 
 #define X_SPACING 0.02

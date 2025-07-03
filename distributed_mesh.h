@@ -153,10 +153,6 @@ void DistributedMesh::generateLocalDomain() {
         fluidMetadata[regionId].insert(fluidMetadata[regionId].end(), 
             {cellSizeX, cellSizeY, cellSizeZ, faceSizeX, faceSizeY, faceSizeZ, absoluteOffsetX, absoluteOffsetY, absoluteOffsetZ});
 
-        // std::cout << "maxx: " << (*maxXIter)[0] << " maxy: " << (*maxYIter)[1] << " maxz: " << (*maxZIter)[2] << std::endl;
-        // std::cout << "minx: " << (*minXIter)[0] << " miny: " << (*minYIter)[1] << " minz: " << (*minZIter)[2] << std::endl; 
-        // std::cout << "cx: " << cellSizeX << " cy: " << cellSizeY << " cz: " << cellSizeZ << std::endl;
-        // std::cout << "fx: " << faceSizeX << " fy: " << faceSizeY << " fz: " << faceSizeZ << std::endl; 
 
         p[regionId].resize(cellSizeX * cellSizeY * cellSizeZ);
         ux[regionId].resize(faceSizeX * cellSizeY * cellSizeZ);
@@ -170,7 +166,6 @@ void DistributedMesh::generateLocalDomain() {
             p[regionId][getCellIndex(v[0] - absoluteOffsetX, v[1] - absoluteOffsetY, v[2] - absoluteOffsetZ,              
                 cellSizeX, cellSizeY, cellSizeZ)].isEmpty = false;
         }
-        std::cout << "count: " << count << std::endl;
 
         for(auto bdIter = cycasMesh.fluidBoundaries[regionId].begin(); bdIter != cycasMesh.fluidBoundaries[regionId].end(); ++bdIter) {
             auto name = bdIter->first;
@@ -190,7 +185,6 @@ void DistributedMesh::generateLocalDomain() {
                 if (iter->globalId > (NyF + NxF) - 1) {
                     // 0-4, 0-9, 0-5
                     getGlobalFaceIndexZ(iter->globalId, i, j, k);
-                    // std::cout << i - absoluteOffsetX << " " << j - absoluteOffsetY << " " << k - absoluteOffsetZ << " z " << iter->globalId << std::endl; 
                     auto &f = uz[regionId][getFaceIndex(i - absoluteOffsetX, j - absoluteOffsetY, k - absoluteOffsetZ,
                                                         cellSizeX, cellSizeY, cellSizeZ)];
                     f.isBoundary = true;
@@ -222,7 +216,6 @@ void DistributedMesh::generateLocalDomain() {
         }
             int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);     
-    std::cout << "rank: " << rank << std::endl;
 
     } // 流体区域   
     // for (auto &v: bd) {
@@ -271,10 +264,6 @@ void DistributedMesh::generateLocalDomain() {
         solidMetadata[regionId] = std::vector<I64>();
         solidMetadata[regionId].insert(solidMetadata[regionId].end(), 
             {cellSizeX, cellSizeY, cellSizeZ, faceSizeX, faceSizeY, faceSizeZ, absoluteOffsetX, absoluteOffsetY, absoluteOffsetZ});
-        // std::cout << "maxx: " << (*maxXIter)[0] << " maxy: " << (*maxYIter)[1] << " maxz: " << (*maxZIter)[2] << std::endl;
-        // std::cout << "minx: " << (*minXIter)[0] << " miny: " << (*minYIter)[1] << " minz: " << (*minZIter)[2] << std::endl; 
-        // std::cout << "cx: " << cellSizeX << " cy: " << cellSizeY << " cz: " << cellSizeZ << std::endl;
-        // std::cout << "fx: " << faceSizeX << " fy: " << faceSizeY << " fz: " << faceSizeZ << std::endl; 
         mt[regionId].resize(cellSizeX * cellSizeY * cellSizeZ);
         mx[regionId].resize(faceSizeX * cellSizeY * cellSizeZ);
         my[regionId].resize(cellSizeX * faceSizeY * cellSizeZ);
@@ -287,7 +276,6 @@ void DistributedMesh::generateLocalDomain() {
             mt[regionId][getCellIndex(v[0] - absoluteOffsetX, v[1] - absoluteOffsetY, v[2] - absoluteOffsetZ, 
                          cellSizeX, cellSizeY, cellSizeZ)].isEmpty = false;
         }
-        std::cout << "count: " << count << std::endl;
         for(auto bdIter = cycasMesh.mobsBoundaries[regionId].begin(); bdIter !=cycasMesh.mobsBoundaries[regionId].end(); ++bdIter) {
             auto name = bdIter->first;
             auto bdFaces = bdIter->second;

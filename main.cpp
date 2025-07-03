@@ -28,11 +28,9 @@ int main(int argc, char** argv) {
     std::vector<OutputData> local_result;
     std::vector<I64> local_id;
     Solver solver(rank);    
-    std::cout << "all get mesh\n";                                    
     if (!newMesh.fluidMetadata.empty()) {
         for (auto iter = newMesh.fluidMetadata.begin(); iter != newMesh.fluidMetadata.end(); ++iter) {
             auto id = iter->first;
-            std::cout << "f id" << id << std::endl;
             FluidSolver* fluidSolver = new FluidSolver(newMesh, newMesh.fluidMetadata[id], newMesh.p[id], newMesh.ux[id], newMesh.uy[id], newMesh.uz[id]);
             solver.addFluids(fluidSolver);
         }
@@ -40,7 +38,6 @@ int main(int argc, char** argv) {
     if (!newMesh.solidMetadata.empty()) {
         for (auto iter = newMesh.solidMetadata.begin(); iter != newMesh.solidMetadata.end(); ++iter) {
             auto id = iter->first;
-            std::cout << "s id" << id << std::endl;
             MobSolver* mobSolver = new MobSolver(newMesh, newMesh.solidMetadata[id], newMesh.mt[id], newMesh.mx[id], newMesh.my[id], newMesh.mz[id]);
             solver.addMobs(mobSolver);
         }        
